@@ -21,7 +21,7 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install notion-client huggingface_hub
+        run: pip install "notion-client==2.2.1" huggingface_hub
 
       - name: Detect changed project folders
         id: changes
