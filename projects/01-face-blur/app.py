@@ -48,3 +48,4 @@ if uploaded:
     buf = io.BytesIO()
     result_pil.save(buf, format="PNG")
     st.download_button("Download blurred image", buf.getvalue(), "blurred.png", "image/png")
+
