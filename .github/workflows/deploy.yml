@@ -1,0 +1,57 @@
+name: Detect and Deploy Projects
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'projects/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install notion-client huggingface_hub
+
+      - name: Detect changed project folders
+        id: changes
+        run: |
+          changed=$(git diff --name-only HEAD~1 HEAD | grep "^projects/" | cut -d'/' -f2 | sort -u)
+          if [ -z "$changed" ]; then
+            echo "No project changes detected"
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "Changed projects: $changed"
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "folders<<EOF" >> $GITHUB_OUTPUT
+            echo "$changed" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Deploy changed projects
+        if: steps.changes.outputs.has_changes == 'true'
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NOTION_DB_ID: ${{ secrets.NOTION_DB_ID }}
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          GITHUB_USER: ${{ github.repository_owner }}
+          GITHUB_REPO: ${{ github.event.repository.name }}
+        run: python scripts/deploy_all.py "${{ steps.changes.outputs.folders }}"
+
+      - name: Commit generated GitHub Pages files
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add docs/
+          git diff --staged --quiet || git commit -m "Auto-deploy PyScript projects"
+          git push || true
