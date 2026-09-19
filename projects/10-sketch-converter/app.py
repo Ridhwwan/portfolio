@@ -91,3 +91,4 @@ if uploaded:
     buf = io.BytesIO()
     result_pil.save(buf, format="PNG")
     st.download_button(f"Download {style.lower()}", buf.getvalue(), f"{style.lower().replace(' ', '_')}.png", "image/png")
+
