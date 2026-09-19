@@ -78,3 +78,4 @@ if uploaded:
             swatch = np.full((60, 60, 3), color, dtype=np.uint8)
             st.image(swatch, use_container_width=True)
             st.caption(f"{hex_code}\n{pct:.0%}")
+
