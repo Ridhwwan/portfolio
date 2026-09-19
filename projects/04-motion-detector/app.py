@@ -64,3 +64,4 @@ if frame1_file and frame2_file:
         heatmap = cv2.applyColorMap(diff, cv2.COLORMAP_JET)
         heatmap_rgb = cv2.cvtColor(heatmap, cv2.COLOR_BGR2RGB)
         st.image(heatmap_rgb, caption="Difference Heatmap", use_container_width=True)
+
