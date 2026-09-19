@@ -72,3 +72,4 @@ if uploaded:
     else:
         st.warning("No hand detected. Try a clearer photo with your hand visible.")
         st.image(img, use_container_width=True)
+
