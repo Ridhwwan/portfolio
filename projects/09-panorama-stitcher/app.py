@@ -68,3 +68,4 @@ if uploaded_files:
             st.error("Could not align images. Make sure they overlap and are from the same viewpoint.")
         else:
             st.error("Stitching failed. Try different images with more overlap.")
+
