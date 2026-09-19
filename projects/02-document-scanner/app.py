@@ -95,3 +95,4 @@ if uploaded:
     else:
         st.warning("Could not detect document edges. Try a photo with more contrast between the document and background.")
         st.image(img, caption="Original", use_container_width=True)
+
