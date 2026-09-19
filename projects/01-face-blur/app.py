@@ -14,7 +14,7 @@ face_cascade = cv2.CascadeClassifier(
     cv2.data.haarcascades + "haarcascade_frontalface_default.xml"
 )
 
-blur_strength = st.slider("Blur strength", 10, 100, 51, step=2)
+blur_strength = st.slider("Blur strength", 11, 99, 51, step=2)
 
 uploaded = st.file_uploader("Choose an image", type=["jpg", "jpeg", "png"])
 
