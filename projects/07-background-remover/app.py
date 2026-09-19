@@ -63,3 +63,4 @@ if uploaded:
         f"Download (.{ext})", buf.getvalue(),
         f"no_bg.{ext}", f"image/{ext}"
     )
+
