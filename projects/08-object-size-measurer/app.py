@@ -80,3 +80,4 @@ if uploaded:
 
         st.image(annotated, caption="Measured Objects", use_container_width=True)
         st.caption(f"Scale: {pixels_per_cm:.1f} pixels/cm (based on reference = {ref_width_cm} cm)")
+
