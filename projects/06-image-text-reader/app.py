@@ -61,3 +61,4 @@ if uploaded:
         st.download_button("Download as .txt", text, "extracted_text.txt", "text/plain")
     else:
         st.info("No text detected. Try a different preprocessing option.")
+
